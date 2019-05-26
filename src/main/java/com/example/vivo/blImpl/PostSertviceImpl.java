@@ -101,6 +101,19 @@ public class PostSertviceImpl implements PostService {
         }
     }
 
+    public ResponseVO delPost(int postId){
+        ResponseVO response;
+        try{
+            response=ResponseVO.buildSuccess(selectPostsByTime(postMapper.delPost(major)));
+            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+            response=ResponseVO.buildFailure(null);
+            response.setContent("失败");
+            return response;
+        }
+    }
+
     private List<PostsVO> selectByMajor(List<PostPO> postList,int major){
         List<PostsVO> postsVOList =new ArrayList<>();
         for (PostPO post:postList){

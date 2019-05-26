@@ -52,4 +52,12 @@ public class PostController {
     public ResponseVO selectPostByMajor(int major){
         return postService.selectPostByMajor(major);
     }
+
+    @PostMapping("/delPost")
+    public ResponseVO delPost(int postId){
+        return postService.delPost(postId);
+    }
+
+
+
 }
