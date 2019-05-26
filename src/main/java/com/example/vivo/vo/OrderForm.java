@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class OrderForm {
-    private int id;
-    private String takerEmail;
+    private int postId;
+    private String email;
 }

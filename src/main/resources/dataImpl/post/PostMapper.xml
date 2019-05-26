@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.vivo.data.account.AccountMapper">
+<mapper namespace="com.example.vivo.data.post.PostMapper">
+    <parameterMap id="PostPO" type="com.example.vivo.po.PostPO">
+        <parameter property="id"/>
+        <parameter property="email"/>
+        <parameter property="title"/>
+        <parameter property="description"/>
+        <parameter property="urls"/>
+        <parameter property="major"/>
+        <parameter property="tag"/>
+        <parameter property="commentIds"/>
+        <parameter property="price"/>
+        <parameter property="state"/>
+        <parameter property="startTime"/>
+        <parameter property="endTime"/>
+        <parameter property="orderTakerEmail"/>
+    </parameterMap>
+
+    <resultMap id="PostPO" type="com.example.vivo.po.PostPO">
+    </resultMap>
+
+    <select id="selectPostsByTime" resultMap="PostPO">
+        select * from post
+    </select>
+
+    <select id="selectPostById" resultMap="PostPO">
+        select * from post where id=#{id}
+    </select>
+
+    <insert id="addPost" parameterMap="PostPO" useGeneratedKeys="true">
+        insert into post(id,email,title,description,urls,major,tag,commentNum,commentIds,price,state,startTime,endTime,orderTakerEmail)
+        values (#{id},#{email},#{title},#{description},#{urls},#{major},#{tag},#{commentNum},#{commentIds},#{price},#{state},#{startTime},#{endTime},#{orderTakerEmail})
+    </insert>
+
+    <update id="giveUpPost">
+        update post set state=0 where id={#postId}
+    </update>
+
+    <update id="completeUpPost">
+        update post set state=2, endTime={#endTime} where id={#postId}
+    </update>
+
+    <select id="selectPostsByMajor" resultMap="PostPO">
+        select * from post where major={#major}
+    </select>
+
+    <delete id="deletePostById">
+        delete from post where id={#postId}
+    </delete>
 
 </mapper>

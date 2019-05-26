@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
             UserPO userPO = new UserPO(user);
             accountMapper.insertUser(userPO);
         }catch (Exception e){
-            e.printStackTrace();
+//            e.printStackTrace();
             return ResponseVO.buildFailure("该邮箱已被注册");
         }
         return ResponseVO.buildSuccess("注册成功");

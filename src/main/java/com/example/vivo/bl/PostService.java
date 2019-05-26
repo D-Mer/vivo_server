@@ -3,6 +3,7 @@ package com.example.vivo.bl;
 import com.example.vivo.vo.OrderForm;
 import com.example.vivo.vo.PostForm;
 import com.example.vivo.vo.ResponseVO;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.sound.sampled.ReverbType;
@@ -14,6 +15,8 @@ public interface PostService {
     * @return
     */
     ResponseVO showPosts(String email);
+
+    ResponseVO getPostById(int id);
 
     ResponseVO addPosts(PostForm postForm);
 
