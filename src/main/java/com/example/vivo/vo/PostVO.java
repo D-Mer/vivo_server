@@ -3,18 +3,20 @@ package com.example.vivo.vo;
 import com.example.vivo.po.PostPO;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class PostsVO {
+public class PostVO {
 
     /*
     该帖id
     */
     private int postId;
     /*
-     该帖拥有者email/id
+     该帖拥有者email/postId
     */
     private String email;
     /*
@@ -35,34 +37,47 @@ public class PostsVO {
     private Date endTime;
     /*订单状态*/
 
-    private String status;
+    private int status;
     /*订单价格*/
 
     private Double price;
     /*帖子评论id列表（化为字符串）*/
+    private int commentNum;
     private String commentIds;
 
     /*int标签tag*/
-    private int tag;
+    private int tagId;
     /*int专业领域*/
     private int major;
 
     /*文件/图片url*/
-    private String url;
+    private List<String> urls = new ArrayList<>();
 
-    public PostsVO(PostPO post){
+    public PostVO(PostPO post){
+        this.commentNum=post.getCommentNum();
         this.commentIds=post.getCommentIds();
         this.description=post.getDescription();
         this.email=post.getEmail();
         this.endTime=post.getEndTime();
         this.startTime=post.getStartTime();
         this.major=post.getMajor();
-        this.price=this.getPrice();
+        this.price=post.getPrice();
         this.status=post.getStatus();
-        this.tag=post.getTag();
+        this.tagId =post.getTag();
         this.orderTaker=post.getOrderTaker();
         this.title=post.getTitle();
-        this.url=post.getUrl();
+        this.urls = Arrays.asList(post.getUrls().split(","));
         this.postId=post.getPostId();
     }
+
+//    public PostVO(PostForm postForm){
+//        this.description=postForm.getDescription();
+//        this.email=postForm.getEmail();
+//        this.startTime=new Date();
+//        this.major=postForm.getMajor();
+//        this.price=postForm.getPrice();
+//        this.status=0;
+//        this.tagId =postForm.getTagId();
+//        this.title=postForm.getTitle();
+//    }
 }

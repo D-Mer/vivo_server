@@ -3,13 +3,9 @@ package com.example.vivo.controller;
 import com.example.vivo.bl.PostService;
 import com.example.vivo.vo.OrderForm;
 import com.example.vivo.vo.PostForm;
-import com.example.vivo.vo.PostsVO;
 import com.example.vivo.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.ws.Action;
-import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping("/post")
@@ -25,7 +21,7 @@ public class PostController {
 
     @PostMapping("/getPostById")
     public ResponseVO getPostById(@RequestBody int id){
-        return null;
+        return postService.getPostById(id);
     }
 
     @PostMapping("/addPost")

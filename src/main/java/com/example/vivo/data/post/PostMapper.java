@@ -1,11 +1,11 @@
 package com.example.vivo.data.post;
 
 import com.example.vivo.po.PostPO;
+import com.example.vivo.vo.OrderForm;
 import com.example.vivo.vo.PostForm;
-import com.example.vivo.vo.PostsVO;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -17,20 +17,30 @@ public interface PostMapper {
     List<PostPO> selectPostsByTime();
 
     /*
-    * 增加post订单
-    * */
-//     addPost(PostForm postForm);
+     * 展示指定id的post
+     * @return
+     * */
+    PostPO selectPostById(int postId);
 
     /*
-    * 更新订单状态；默认未接单；0为被接单；1为接单后放弃；2为已完成
+    * 增加post订单
     * */
-    //updatePostTaker(orderForm,0)
+    boolean addPost(PostForm postForm);
+
+    /*
+     * 接受post订单
+     * */
+    boolean takeOrder(int postId, String email);
+
+    /*
+    * 更新订单状态；默认为0，未接单；1为被接单；2为已完成
+    * */
+    boolean giveUpPost(int postId);
 
     /*
     * 完成订单
     * */
-    //completePost(String postId)
-
+    boolean completePost(String postId, Date endTime);
 
 
     /*
@@ -41,5 +51,5 @@ public interface PostMapper {
    /*
    * 删除订单
    * */
-   List<PostPO> delPost(int major);
+   boolean delPostById(int postId);
 }

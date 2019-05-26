@@ -12,7 +12,7 @@ public class PostPO {
     */
     private int postId;
     /*
-     该帖拥有者email/id
+     该帖拥有者email/postId
     */
     private String email;
     /*
@@ -33,11 +33,12 @@ public class PostPO {
     private Date endTime;
     /*订单状态*/
 
-    private String status;
+    private int status;
     /*订单价格*/
 
     private Double price;
     /*帖子评论id列表（化为字符串）*/
+    private int commentNum;
     private String commentIds;
 
     /*int标签tag*/
@@ -46,5 +47,5 @@ public class PostPO {
     private int major;
 
     /*文件/图片url*/
-    private String url;
+    private String urls;
 }
