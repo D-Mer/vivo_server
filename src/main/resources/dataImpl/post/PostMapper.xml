@@ -33,8 +33,12 @@
         values (#{id},#{email},#{title},#{description},#{urls},#{major},#{tag},#{commentNum},#{commentIds},#{price},#{state},#{startTime},#{endTime},#{orderTakerEmail})
     </insert>
 
+    <update id="takeOrder">
+        update post set state=1, orderTakerEmail=#{email} where id=#{postId}
+    </update>
+
     <update id="giveUpPost">
-        update post set state=0 where id={#postId}
+        update post set state=0 where id=#{postId}
     </update>
 
     <update id="completeUpPost">

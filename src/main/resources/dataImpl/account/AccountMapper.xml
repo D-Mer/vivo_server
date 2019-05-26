@@ -28,4 +28,8 @@
         select * from user where email=#{email}
     </select>
 
+    <update id="updateCredit">
+        update user set credit=credit+#{updateNum} where email=#{email}
+    </update>
+
 </mapper>

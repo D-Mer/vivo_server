@@ -5,14 +5,11 @@ import com.example.vivo.data.account.AccountMapper;
 import com.example.vivo.po.UserPO;
 import com.example.vivo.vo.ResponseVO;
 import com.example.vivo.vo.UserForm;
-import com.example.vivo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService, AccountServiceForBL {
     @Autowired
     AccountMapper accountMapper;
 
@@ -58,5 +55,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public ResponseVO selectUserByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public boolean updateCredit(String email, int updateNum) {
+        return accountMapper.updateCredit(email,updateNum);
     }
 }
