@@ -1,10 +1,9 @@
 package com.example.vivo.vo;
 
-import com.example.vivo.po.UserPO;
 import lombok.Data;
 
 @Data
-public class UserVO {
+public class UserForm {
     private String email;
     private String password;
     private int major;
@@ -17,11 +16,5 @@ public class UserVO {
     private String qq;
     private String wechat;
     private String tel;
-    public UserVO(){}
-
-    public UserVO(UserPO userPO){
-        email = userPO.getEmail();
-        password = userPO.getPassword();
-    }
-
+    private String verificationCode;
 }

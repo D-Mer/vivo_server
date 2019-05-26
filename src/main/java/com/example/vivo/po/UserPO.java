@@ -1,5 +1,6 @@
 package com.example.vivo.po;
 
+import com.example.vivo.vo.UserForm;
 import com.example.vivo.vo.UserVO;
 import lombok.Data;
 
@@ -7,22 +8,30 @@ import java.util.Date;
 
 @Data
 public class UserPO {
-
-    public static String DefaultAuthority = "member";
-
-    private int id;
-    private String username;
+    private String email;
     private String password;
-    private Date signupDate;
-    private String authority = DefaultAuthority;
+    private int major;
+    private int secondMajor;
+    private int minor;
+    private double balance;
+    private String hobbies;
+    private int credit;
+    private String posts;
+    private String qq;
+    private String wechat;
+    private String tel;
 
     public UserPO(){
     }
 
     public UserPO(UserVO userVO){
-        id = userVO.getId();
-        username = userVO.getUsername();
+        email = userVO.getEmail();
         password = userVO.getPassword();
+    }
+
+    public UserPO(UserForm userForm){
+        email = userForm.getEmail();
+        password = userForm.getPassword();
     }
 
 }

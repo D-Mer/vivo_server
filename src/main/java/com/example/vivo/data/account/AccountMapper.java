@@ -9,8 +9,6 @@ public interface AccountMapper {
 
     boolean insertUser(UserPO user);
 
-    UserPO selectUserById(@Param("id") int id);
-
-    UserPO selectUserByName(@Param("username") String username);
+    UserPO selectUserByEmail(@Param("email") String email);
 
 }

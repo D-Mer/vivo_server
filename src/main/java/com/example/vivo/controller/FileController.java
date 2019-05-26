@@ -1,15 +1,12 @@
 package com.example.vivo.controller;
 
-import com.example.vivo.bl.FileService;
 import com.example.vivo.vo.ResponseVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 @RestController
@@ -21,7 +18,11 @@ public class FileController {
 //    FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseVO upload(@RequestParam("file") MultipartFile file){
+    public ResponseVO upload(HttpServletRequest request){
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        MultipartFile file = ((MultipartHttpServletRequest) request).getFile("avatar");
+        System.out.println(params.getParameter("email"));
+        System.out.println(params.getParameter("password"));
         return saveFile(file);
     }
 
@@ -57,7 +58,7 @@ public class FileController {
         System.out.println("文件存储路径为：" + finalPath);
 
         // 创建一个新文件
-        File dest = new File(fileName);
+        File dest = new File("E:\\vivo马拉松\\vivo_server\\阿库娅.jpeg");
 //        // 检测是否存在目录
 //        if (!dest.getParentFile().exists()) {
 //            dest.getParentFile().mkdirs();// 新建文件夹

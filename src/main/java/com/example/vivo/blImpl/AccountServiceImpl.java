@@ -4,6 +4,7 @@ import com.example.vivo.bl.AccountService;
 import com.example.vivo.data.account.AccountMapper;
 import com.example.vivo.po.UserPO;
 import com.example.vivo.vo.ResponseVO;
+import com.example.vivo.vo.UserForm;
 import com.example.vivo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ public class AccountServiceImpl implements AccountService {
     AccountMapper accountMapper;
 
     @Override
-    public ResponseVO login(String username, String password) {
-        System.out.println("用户名为："+ username +" 密码为："+password);
+    public ResponseVO login(UserForm user) {
+        String email = user.getEmail();
+        String password = user.getPassword();
+        System.out.println("用户名为："+ email +" 密码为："+password+"\n请求登录");
         ResponseVO response;
-        UserPO userPO = accountMapper.selectUserByName(username);
+        UserPO userPO = accountMapper.selectUserByEmail(email);
         if (userPO == null){
             response = ResponseVO.buildFailure(false);
             response.setMessage("用户名不存在");
@@ -34,25 +37,26 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseVO insertUser(UserVO user) {
-        UserPO userPO = new UserPO(user);
-        userPO.setSignupDate(new Date());
+    public ResponseVO insertUser(UserForm user) {
+//        userPO.setSignupDate(new Date());
+//        if (!user.getVerificationCode().equals("123")){
+//            return ResponseVO.buildFailure("验证码错误");
+//        }
         try{
+            System.out.println(user.getEmail());
+            System.out.println(user.getPassword());
+            System.out.println(user.getVerificationCode());
+            UserPO userPO = new UserPO(user);
             accountMapper.insertUser(userPO);
         }catch (Exception e){
-            return ResponseVO.buildFailure("用户名已存在");
+            e.printStackTrace();
+            return ResponseVO.buildFailure("该邮箱已被注册");
         }
         return ResponseVO.buildSuccess("注册成功");
     }
 
     @Override
-    public ResponseVO selectUserById(int id) {
-        UserPO userPO = accountMapper.selectUserById(id);
-        return ResponseVO.buildSuccess(userPO);
-    }
-
-    @Override
-    public ResponseVO selectUserByName(String username) {
+    public ResponseVO selectUserByEmail(String email) {
         return null;
     }
 }

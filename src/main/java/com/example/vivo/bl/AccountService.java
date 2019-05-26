@@ -1,15 +1,14 @@
 package com.example.vivo.bl;
 
 import com.example.vivo.vo.ResponseVO;
+import com.example.vivo.vo.UserForm;
 import com.example.vivo.vo.UserVO;
 
 public interface AccountService {
 
-    ResponseVO login(String username, String password);
+    ResponseVO login(UserForm user);
 
-    ResponseVO insertUser(UserVO user);
+    ResponseVO insertUser(UserForm user);
 
-    ResponseVO selectUserById(int id);
-
-    ResponseVO selectUserByName(String name);
+    ResponseVO selectUserByEmail(String email);
 }
