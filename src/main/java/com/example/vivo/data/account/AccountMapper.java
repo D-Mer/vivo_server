@@ -11,4 +11,6 @@ public interface AccountMapper {
 
     UserPO selectUserByEmail(@Param("email") String email);
 
+    boolean updateCredit(String email, double updateNum);
+
 }

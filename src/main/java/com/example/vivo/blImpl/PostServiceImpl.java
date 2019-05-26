@@ -22,6 +22,9 @@ public class PostServiceImpl implements PostService {
     FileServiceForBL fileService;
 
     @Autowired
+    AccountServiceForBL accountService;
+
+    @Autowired
     PostMapper postMapper;
 
     @Override
@@ -64,21 +67,21 @@ public class PostServiceImpl implements PostService {
     public ResponseVO addPosts(PostForm postForm){
         ResponseVO response;
         try {
-            MultipartFile file = postForm.getPicture();
-            String url;
-            if ((url = String.valueOf(fileService.saveFileForUser(file, postForm.getEmail()).getContent())).equals("null")){
-                response = ResponseVO.buildFailure(null);
-                response.setMessage("发帖失败，原因：文件保存失败");
-                return response;
+            StringBuilder url = new StringBuilder();
+            String tempUrl;
+            PostPO postPO;
+            for (MultipartFile f : postForm.getPicture()) {
+                if ((tempUrl = String.valueOf(fileService.saveFileForUser(f, postForm.getEmail()).getContent())).equals("null")){
+                    response = ResponseVO.buildFailure(null);
+                    response.setMessage("发帖失败，原因：文件保存失败");
+                    return response;
+                }
+                url.append(url.length() == 0 ? tempUrl : ","+tempUrl);
             }
-            PostPO postPO = new PostPO(postForm, url);
-            if (postMapper.addPost(postPO)){
-                response = ResponseVO.buildSuccess(url);
-                response.setMessage("发帖成功");
-            }else {
-                response = ResponseVO.buildFailure(null);
-                response.setMessage("发帖失败，原因未知");
-            }
+            postPO = new PostPO(postForm, url.toString());
+            postMapper.addPost(postPO);
+            response = ResponseVO.buildSuccess(url.toString());
+            response.setMessage("发帖成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
@@ -94,10 +97,12 @@ public class PostServiceImpl implements PostService {
         try {
             response = ResponseVO.buildSuccess(postMapper.takeOrder(orderForm.getPostId(), orderForm.getEmail()));
             System.out.println(response.getContent()+"ddddddd");
+            response.setMessage("接单成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
+
             response.setContent("失败"+"ddddddddddddddd");
             return response;
         }
@@ -107,13 +112,19 @@ public class PostServiceImpl implements PostService {
     public ResponseVO giveUp(OrderForm orderForm){
         ResponseVO response;
         try {
-            response = ResponseVO.buildSuccess(postMapper.giveUpPost(orderForm.getPostId()));
             //todo: 扣除信用积分
+            if (!accountService.updateCredit(orderForm.getEmail(), -10)){
+                response = ResponseVO.buildFailure(null);
+                response.setContent("弃单失败，原因：信用分扣除失败");
+                return response;
+            }
+            response = ResponseVO.buildSuccess(postMapper.giveUpPost(orderForm.getPostId()));
+            response.setMessage("弃单成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response.setContent("弃单失败");
             return response;
         }
     }

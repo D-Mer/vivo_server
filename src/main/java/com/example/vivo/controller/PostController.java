@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/post")
 public class PostController {
@@ -26,7 +28,7 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    public ResponseVO addPosts(@RequestParam("picture") MultipartFile picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") int major, @RequestParam("description") String description, @RequestParam("price") double price){
+    public ResponseVO addPosts(@RequestParam("picture") List<MultipartFile> picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") int major, @RequestParam("description") String description, @RequestParam("price") double price){
         PostForm postForm = new PostForm();
         postForm.setPicture(picture);
         postForm.setTitle(title);
