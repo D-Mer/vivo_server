@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/vivo?serverTimezone=CTT&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #定义初始连接数
+    initialSize: 0
+    #定义最大连接数
+    maxActive: 20
+    #定义最大空闲
+    maxIdle: 20
+    #定义最小空闲
+    minIdle: 1
+    #定义最长等待时间
+    maxWait: 60000
+
+#  mvc:
+#    static-path-pattern: /**
+#  resources:
+#    static-locations:
+#    - classpath:/META-INF/resources/
+#    - classpath:/static
+#    - classpath:/resources/
+#    - file:${upload-path}
+
+  servlet:
+    multipart:
+      ##单个文件最大KB/MB
+      #spring-boot-starter-parent2.0.0的设置格式
+      #spring.servlet.multipart.max-file-size=100MB
+
+      #spring-boot-starter-parent1.4.3的设置格式
+      max-file-size: 100MB
+      #设置总上传数据大小
+      #spring-boot-starter-parent2.0.0的设置格式
+      #spring.servlet.multipart.max-request-size=200MB
+
+      #spring-boot-starter-parent1.4.3的设置格式
+      max-request-size: 1000MB
+mybatis:
+  mapper-locations: classpath:dataImpl/*/*Mapper.xml
+server:
+  port: 8081
