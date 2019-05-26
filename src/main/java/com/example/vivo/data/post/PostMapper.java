@@ -38,4 +38,8 @@ public interface PostMapper {
     * */
    List<PostPO> selectPostsByMajor( int major);
 
+   /*
+   * 删除订单
+   * */
+   List<PostPO> delPost(int major);
 }

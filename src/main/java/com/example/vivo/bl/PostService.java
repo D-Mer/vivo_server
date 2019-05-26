@@ -15,7 +15,6 @@ public interface PostService {
     */
     ResponseVO showPosts(String email);
 
-
     ResponseVO addPosts(PostForm postForm);
 
     ResponseVO takeOrder(OrderForm orderForm);
@@ -23,4 +22,8 @@ public interface PostService {
     ResponseVO giveUp(OrderForm orderForm);
 
     ResponseVO completePost(String postId);
+
+    ResponseVO selectPostByMajor(int major);
+
+    ResponseVO delPost(int postId);
 }
