@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class PostServiceImpl implements PostService {
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response.setMessage("查询失败，原因未知");
             return response;
         }
     }
@@ -54,11 +55,12 @@ public class PostServiceImpl implements PostService {
             PostPO postPO = postMapper.selectPostById(id);
             PostVO postVO = new PostVO(postPO);
             response  = ResponseVO.buildSuccess(postVO);
+            response.setMessage("查询成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response.setContent("查询失败，原因：目标不存在");
             return response;
         }
     }
@@ -71,7 +73,7 @@ public class PostServiceImpl implements PostService {
             String tempUrl;
             PostPO postPO;
             for (MultipartFile f : postForm.getPicture()) {
-                if ((tempUrl = String.valueOf(fileService.saveFileForUser(f, postForm.getEmail()).getContent())).equals("null")){
+                if ((tempUrl = String.valueOf(fileService.saveFile(f, postForm.getEmail()).getContent())).equals("null")){
                     response = ResponseVO.buildFailure(null);
                     response.setMessage("发帖失败，原因：文件保存失败");
                     return response;
@@ -80,7 +82,7 @@ public class PostServiceImpl implements PostService {
             }
             postPO = new PostPO(postForm, url.toString());
             postMapper.addPost(postPO);
-            response = ResponseVO.buildSuccess(url.toString());
+            response = ResponseVO.buildSuccess(Arrays.asList(url.toString().split(",")));
             response.setMessage("发帖成功");
             return response;
         }catch (Exception e){
@@ -95,15 +97,18 @@ public class PostServiceImpl implements PostService {
     public ResponseVO takeOrder(OrderForm orderForm){
         ResponseVO response;
         try {
-            response = ResponseVO.buildSuccess(postMapper.takeOrder(orderForm.getPostId(), orderForm.getEmail()));
-            System.out.println(response.getContent());
-            response.setMessage("接单成功");
+            if (postMapper.takeOrder(orderForm.getPostId(), orderForm.getEmail())){
+                response = ResponseVO.buildSuccess(null);
+                response.setMessage("接单成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("接单失败，原因：订单不存在");
+            }
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-
-            response.setContent("失败"+"ddddddddddddddd");
+            response.setMessage("接单失败，原因未知");
             return response;
         }
     }
@@ -117,13 +122,17 @@ public class PostServiceImpl implements PostService {
                 response.setContent("弃单失败，原因：信用分扣除失败");
                 return response;
             }
-            response = ResponseVO.buildSuccess(postMapper.giveUpPost(orderForm.getPostId()));
+            if (!postMapper.giveUpPost(orderForm.getPostId())){
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("弃单失败，原因：订单不存在");
+            }
+            response = ResponseVO.buildSuccess(null);
             response.setMessage("弃单成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("弃单失败");
+            response.setContent("弃单失败，原因未知");
             return response;
         }
     }
@@ -151,13 +160,59 @@ public class PostServiceImpl implements PostService {
     public ResponseVO selectPostByMajor(int major){
         ResponseVO response;
         try{
-            response = ResponseVO.buildSuccess(postMapper.selectPostsByMajor(major));
-            response.setMessage("获取订单成功");
+            List<PostPO> postPOList = postMapper.selectPostByMajor(major);
+            if (postPOList.size()!=0){
+                response = ResponseVO.buildSuccess(postPOList);
+                response.setMessage("获取订单成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("获取订单失败，原因：该专业下无订单");
+            }
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response.setContent("获取订单失败，未知原因");
+            return response;
+        }
+    }
+
+    public ResponseVO selectPostByEmail(String email){
+        ResponseVO response;
+        try{
+            List<PostPO> postPOList = postMapper.selectPostByEmail(email);
+            if (postPOList.size()!=0){
+                response = ResponseVO.buildSuccess(postPOList);
+                response.setMessage("获取订单成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("获取订单失败，原因：该用户无订单");
+            }
+            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+            response = ResponseVO.buildFailure(null);
+            response.setContent("获取订单失败，未知原因");
+            return response;
+        }
+    }
+
+    public ResponseVO selectOrderByEmail(String email){
+        ResponseVO response;
+        try{
+            List<PostPO> postPOList = postMapper.selectOrderByEmail(email);
+            if (postPOList.size()!=0){
+                response = ResponseVO.buildSuccess(postPOList);
+                response.setMessage("获取订单成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("获取订单失败，原因：该用户无接单");
+            }
+            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+            response = ResponseVO.buildFailure(null);
+            response.setContent("获取订单失败，未知原因");
             return response;
         }
     }

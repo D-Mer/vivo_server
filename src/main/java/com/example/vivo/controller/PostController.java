@@ -18,7 +18,7 @@ public class PostController {
     PostService postService;
 
     @PostMapping("/getPosts")
-    public ResponseVO getPosts(@RequestBody String email){
+    public ResponseVO getPosts(@RequestParam("email") String email){
         return postService.showPosts(email);
     }
 
@@ -54,9 +54,19 @@ public class PostController {
         return postService.completePost(postId);
     }
 
-    @PostMapping("/selectPostsByMajor")
+    @PostMapping("/selectPostByMajor")
     public ResponseVO selectPostByMajor(@RequestParam("major") int major){
         return postService.selectPostByMajor(major);
+    }
+
+    @PostMapping("/selectPostByEmail")
+    public ResponseVO selectPostByEmail(@RequestParam("email") String email){
+        return postService.selectPostByEmail(email);
+    }
+
+    @PostMapping("/selectOrderByEmail")
+    public ResponseVO selectOrderByEmail(@RequestParam("email") String email){
+        return postService.selectOrderByEmail(email);
     }
 
     @PostMapping("/delPost")

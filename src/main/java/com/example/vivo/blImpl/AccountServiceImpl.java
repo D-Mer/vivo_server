@@ -21,13 +21,13 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
         ResponseVO response;
         UserPO userPO = accountMapper.selectUserByEmail(email);
         if (userPO == null){
-            response = ResponseVO.buildFailure(false);
+            response = ResponseVO.buildFailure(null);
             response.setMessage("用户名不存在");
         }else if (!password.equals(userPO.getPassword())){
-            response = ResponseVO.buildFailure(false);
+            response = ResponseVO.buildFailure(null);
             response.setMessage("用户名或密码错误");
         }else {
-            response = ResponseVO.buildSuccess(true);
+            response = ResponseVO.buildSuccess(null);
             response.setMessage("登录成功");
         }
         return response;
@@ -39,6 +39,7 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
 //        if (!user.getVerificationCode().equals("123")){
 //            return ResponseVO.buildFailure("验证码错误");
 //        }
+        ResponseVO response;
         try{
             System.out.println(user.getEmail());
             System.out.println(user.getPassword());
@@ -46,10 +47,13 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
             UserPO userPO = new UserPO(user);
             accountMapper.insertUser(userPO);
         }catch (Exception e){
-//            e.printStackTrace();
-            return ResponseVO.buildFailure("该邮箱已被注册");
+            response = ResponseVO.buildFailure(null);
+            response.setMessage("该邮箱已被注册");
+            return response;
         }
-        return ResponseVO.buildSuccess("注册成功");
+        response = ResponseVO.buildFailure(null);
+        response.setMessage("注册成功");
+        return response;
     }
 
     @Override

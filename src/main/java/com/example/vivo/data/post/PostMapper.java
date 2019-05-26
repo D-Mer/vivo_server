@@ -47,7 +47,17 @@ public interface PostMapper {
     /*
     * 按照major展示订单
     * */
-   List<PostPO> selectPostsByMajor( int major);
+   List<PostPO> selectPostByMajor(int major);
+
+    /*
+     * 按照email展示用户所提交的订单
+     * */
+    List<PostPO> selectPostByEmail(String email);
+
+    /*
+     * 按照email展示用户接受的订单
+     * */
+    List<PostPO> selectOrderByEmail(String email);
 
    /*
    * 删除订单

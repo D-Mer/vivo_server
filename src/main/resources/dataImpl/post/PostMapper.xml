@@ -45,8 +45,16 @@
         update post set state=2, endTime=#{endTime} where id=#{postId}
     </update>
 
-    <select id="selectPostsByMajor" resultMap="PostPO">
+    <select id="selectPostByMajor" resultMap="PostPO">
         select * from post where major=#{major}
+    </select>
+
+    <select id="selectPostByEmail" resultMap="PostPO">
+        select * from post where email=#{email}
+    </select>
+
+    <select id="selectOrderByEmail" resultMap="PostPO">
+        select * from post where orderTakerEmail=#{email}
     </select>
 
     <delete id="delPostById">
