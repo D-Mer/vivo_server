@@ -118,9 +118,12 @@ public void testTakeOrder() throws Exception {
 * 
 */ 
 @Test
-public void testGiveUp() throws Exception { 
+public void testGiveUp() throws Exception {
 //TODO: Test goes here...
-
+    OrderForm orderForm=new OrderForm();
+    orderForm.setEmail("22");
+    orderForm.setPostId(17);
+    Assert.assertSame("fail",true,postService.giveUp(orderForm).getContent());
 
 } 
 

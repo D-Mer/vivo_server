@@ -114,16 +114,19 @@ public class PostServiceImpl implements PostService {
         try {
             if (!accountService.updateCredit(orderForm.getEmail(), -10)){
                 response = ResponseVO.buildFailure(null);
-                response.setContent("弃单失败，原因：信用分扣除失败");
+                response.setContent("弃单失败，原因：信用分扣除失败ddddddddddddd");
+                System.out.println(response.getContent()+"dddddddddd");
                 return response;
             }
             response = ResponseVO.buildSuccess(postMapper.giveUpPost(orderForm.getPostId()));
+            System.out.println(response.getContent()+"dddd");
             response.setMessage("弃单成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response = ResponseVO.buildFailure(null);
-            response.setContent("弃单失败");
+            response.setContent("弃单失败dd");
+            System.out.println(response.getContent()+"ddddddd");
             return response;
         }
     }
