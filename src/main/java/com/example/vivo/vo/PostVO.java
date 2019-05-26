@@ -14,9 +14,9 @@ public class PostVO {
     /*
     该帖id
     */
-    private int postId;
+    private int id;
     /*
-     该帖拥有者email/postId
+     该帖拥有者email/id
     */
     private String email;
     /*
@@ -28,7 +28,7 @@ public class PostVO {
     private String description;
 
     /*订单接收者email*/
-    private String orderTaker;
+    private String orderTakerEmail;
 
     /*订单开始时间*/
     private Date startTime;
@@ -37,7 +37,7 @@ public class PostVO {
     private Date endTime;
     /*订单状态*/
 
-    private int status;
+    private int state;
     /*订单价格*/
 
     private Double price;
@@ -46,7 +46,7 @@ public class PostVO {
     private String commentIds;
 
     /*int标签tag*/
-    private int tagId;
+    private String tagId;
     /*int专业领域*/
     private int major;
 
@@ -62,12 +62,12 @@ public class PostVO {
         this.startTime=post.getStartTime();
         this.major=post.getMajor();
         this.price=post.getPrice();
-        this.status=post.getStatus();
+        this.state =post.getState();
         this.tagId =post.getTag();
-        this.orderTaker=post.getOrderTaker();
+        this.orderTakerEmail =post.getOrderTakerEmail();
         this.title=post.getTitle();
         this.urls = Arrays.asList(post.getUrls().split(","));
-        this.postId=post.getPostId();
+        this.id =post.getId();
     }
 
 //    public PostVO(PostForm postForm){
@@ -76,7 +76,7 @@ public class PostVO {
 //        this.startTime=new Date();
 //        this.major=postForm.getMajor();
 //        this.price=postForm.getPrice();
-//        this.status=0;
+//        this.state=0;
 //        this.tagId =postForm.getTagId();
 //        this.title=postForm.getTitle();
 //    }

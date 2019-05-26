@@ -8,12 +8,18 @@ import com.example.vivo.vo.PostForm;
 import com.example.vivo.vo.PostVO;
 import com.example.vivo.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class PostServiceImpl implements PostService {
+
+    @Autowired
+    FileServiceForBL fileService;
 
     @Autowired
     PostMapper postMapper;
@@ -58,7 +64,21 @@ public class PostServiceImpl implements PostService {
     public ResponseVO addPosts(PostForm postForm){
         ResponseVO response;
         try {
-            response = postMapper.addPost(postForm) ? ResponseVO.buildSuccess(null) : ResponseVO.buildFailure(null);//数据库增加Post
+            MultipartFile file = postForm.getPicture();
+            String url;
+            if ((url = String.valueOf(fileService.saveFileForUser(file, postForm.getEmail()).getContent())).equals("null")){
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("发帖失败，原因：文件保存失败");
+                return response;
+            }
+            PostPO postPO = new PostPO(postForm, url);
+            if (postMapper.addPost(postPO)){
+                response = ResponseVO.buildSuccess(url);
+                response.setMessage("发帖成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("发帖失败，原因未知");
+            }
             return response;
         }catch (Exception e){
             e.printStackTrace();

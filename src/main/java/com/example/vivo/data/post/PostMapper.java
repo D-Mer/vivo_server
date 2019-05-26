@@ -20,12 +20,12 @@ public interface PostMapper {
      * 展示指定id的post
      * @return
      * */
-    PostPO selectPostById(int postId);
+    PostPO selectPostById(int id);
 
     /*
     * 增加post订单
     * */
-    boolean addPost(PostForm postForm);
+    boolean addPost(PostPO postPO);
 
     /*
      * 接受post订单

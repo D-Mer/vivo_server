@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.vivo.data.account.AccountMapper">
+<mapper namespace="com.example.vivo.data.post.PostMapper">
     <parameterMap id="PostPO" type="com.example.vivo.po.PostPO">
         <parameter property="id"/>
         <parameter property="email"/>
@@ -24,13 +24,13 @@
         select * from post
     </select>
 
-    <select id="selectPostsById" resultMap="PostPO">
-        select * from post where id={#postId}
+    <select id="selectPostById" resultMap="PostPO">
+        select * from post where id=#{id}
     </select>
 
     <insert id="addPost" parameterMap="PostPO" useGeneratedKeys="true">
         insert into post(id,email,title,description,urls,major,tag,commentNum,commentIds,price,state,startTime,endTime,orderTakerEmail)
-        values (#{id},#{email},#{title},#{description},#{urls},#{major},#{tag},#{commentNum},#{commentIds},#{price},#{state},#{startTime},#{endtime},#{orderTakerEmail})
+        values (#{id},#{email},#{title},#{description},#{urls},#{major},#{tag},#{commentNum},#{commentIds},#{price},#{state},#{startTime},#{endTime},#{orderTakerEmail})
     </insert>
 
     <update id="giveUpPost">

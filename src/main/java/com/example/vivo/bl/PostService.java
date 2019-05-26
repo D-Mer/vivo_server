@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.sound.sampled.ReverbType;
 
-@Service
 public interface PostService {
 
     /*

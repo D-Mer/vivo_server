@@ -6,6 +6,7 @@ import com.example.vivo.vo.PostForm;
 import com.example.vivo.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/post")
@@ -20,12 +21,19 @@ public class PostController {
     }
 
     @PostMapping("/getPostById")
-    public ResponseVO getPostById(@RequestBody int id){
+    public ResponseVO getPostById(@RequestParam("id") int id){
         return postService.getPostById(id);
     }
 
     @PostMapping("/addPost")
-    public ResponseVO addPosts(@RequestBody PostForm postForm){
+    public ResponseVO addPosts(@RequestParam("picture") MultipartFile picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") int major, @RequestParam("description") String description, @RequestParam("price") double price){
+        PostForm postForm = new PostForm();
+        postForm.setPicture(picture);
+        postForm.setTitle(title);
+        postForm.setEmail(email);
+        postForm.setMajor(major);
+        postForm.setDescription(description);
+        postForm.setPrice(price);
         return postService.addPosts(postForm);
     }
 
