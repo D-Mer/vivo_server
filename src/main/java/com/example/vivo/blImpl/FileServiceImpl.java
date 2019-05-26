@@ -18,7 +18,7 @@ public class FileServiceImpl implements FileService, FileServiceForBL {
 
 
 
-    public ResponseVO saveFileForUser(MultipartFile file, String email) {
+    public ResponseVO saveFile(MultipartFile file, String index) {
         ResponseVO response;
         if (file == null || file.getOriginalFilename()==null){
             response = ResponseVO.buildFailure(false);
@@ -29,7 +29,7 @@ public class FileServiceImpl implements FileService, FileServiceForBL {
         String fileName = file.getOriginalFilename();
         System.out.println("上传的文件名为：" + fileName);
 
-        String finalPath = filePath + File.separator+(email.isEmpty() ? "" : email+Seperater) + fileName;
+        String finalPath = filePath + File.separator+(index.isEmpty() ? "" : index+Seperater) + fileName;
         System.out.println("文件存储路径为：" + finalPath+"dddd");
 
         // 创建一个新文件

@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
 
 @RestController
 public class FileController {
@@ -23,7 +22,7 @@ public class FileController {
         MultipartFile file = ((MultipartHttpServletRequest) request).getFile("avatar");
         System.out.println(params.getParameter("email"));
         System.out.println(params.getParameter("password"));
-        return fileService.saveFileForUser(file,"");
+        return fileService.saveFile(file,"");
     }
 
 //    private ResponseVO saveFile(MultipartFile file) {

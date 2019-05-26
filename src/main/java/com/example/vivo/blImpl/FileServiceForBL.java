@@ -5,5 +5,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileServiceForBL {
 
-    ResponseVO saveFileForUser(MultipartFile file, String email);
+    ResponseVO saveFile(MultipartFile file, String index);
 }
