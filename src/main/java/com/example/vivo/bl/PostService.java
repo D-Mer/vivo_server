@@ -24,7 +24,7 @@ public interface PostService {
 
     ResponseVO giveUp(OrderForm orderForm);
 
-    ResponseVO completePost(String postId);
+    ResponseVO completePost(int postId);
 
     ResponseVO selectPostByMajor(int major);
 

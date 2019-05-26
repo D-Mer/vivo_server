@@ -41,7 +41,7 @@ public interface PostMapper {
     /*
     * 完成订单
     * */
-    boolean completePost(String postId, Date endTime);
+    boolean completePost(int postId, Date endTime);
 
 
     /*
