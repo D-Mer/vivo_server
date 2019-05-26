@@ -23,7 +23,7 @@ public class PostSertviceImpl implements PostService {
     public ResponseVO showPosts(String postForm){
         ResponseVO response;
         try {
-            response  = ResponseVO.buildSuccess(postListPostVOList(postMapper.selectPostsByTime()));
+            response  = ResponseVO.buildSuccess(selectPostsByTime(postMapper.selectPostsByTime()));
             return response;
         }catch (Exception e){
             e.printStackTrace();
@@ -88,12 +88,33 @@ public class PostSertviceImpl implements PostService {
         }
     }
 
-    private List<PostsVO> postListPostVOList(List<PostPO> postList){
+    public ResponseVO selectPostByMajor(int major){
+        ResponseVO response;
+        try{
+            response=ResponseVO.buildSuccess(selectByMajor(postMapper.selectPostsByMajor(major),major));
+            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+            response=ResponseVO.buildFailure(null);
+            response.setContent("失败");
+            return response;
+        }
+    }
+
+    private List<PostsVO> selectByMajor(List<PostPO> postList,int major){
         List<PostsVO> postsVOList =new ArrayList<>();
         for (PostPO post:postList){
-            postsVOList.add(new PostsVO(post));
+            if (post.getMajor()==major)
+            postsVOList.add(0,new PostsVO(post));
         }
         return postsVOList;
     }
 
+    private List<PostsVO> selectPostsByTime(List<PostPO> postList){
+        List<PostsVO> postsVOList =new ArrayList<>();
+        for (PostPO post:postList){
+            postsVOList.add(0,new PostsVO(post));
+        }
+        return postsVOList;
+    }
 }

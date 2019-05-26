@@ -2,8 +2,10 @@ package com.example.vivo.data.post;
 
 import com.example.vivo.po.PostPO;
 import com.example.vivo.vo.PostForm;
+import com.example.vivo.vo.PostsVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -28,6 +30,12 @@ public interface PostMapper {
     * 完成订单
     * */
     //completePost(String postId)
-    
+
+
+
+    /*
+    * 按照major展示订单
+    * */
+   List<PostPO> selectPostsByMajor( int major);
 
 }

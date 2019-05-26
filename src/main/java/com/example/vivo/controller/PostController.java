@@ -48,4 +48,8 @@ public class PostController {
         return postService.completePost(postId);
     }
 
+    @PostMapping("/selectPostByMajor")
+    public ResponseVO selectPostByMajor(int major){
+        return postService.selectPostByMajor(major);
+    }
 }
