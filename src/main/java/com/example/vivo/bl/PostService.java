@@ -28,5 +28,9 @@ public interface PostService {
 
     ResponseVO selectPostByMajor(int major);
 
+    ResponseVO selectPostByEmail(String email);
+
+    ResponseVO selectOrderByEmail(String email);
+
     ResponseVO delPost(int postId);
 }
