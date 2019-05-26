@@ -50,17 +50,17 @@ public class PostController {
     }
 
     @PostMapping("/completePost")
-    public ResponseVO complete(@RequestBody String postId){
+    public ResponseVO complete(@RequestParam("postId") int postId){
         return postService.completePost(postId);
     }
 
-    @PostMapping("/selectPostByMajor")
-    public ResponseVO selectPostByMajor(int major){
+    @PostMapping("/selectPostsByMajor")
+    public ResponseVO selectPostByMajor(@RequestParam("major") int major){
         return postService.selectPostByMajor(major);
     }
 
     @PostMapping("/delPost")
-    public ResponseVO delPost(int postId){
+    public ResponseVO delPost(@RequestParam("postId") int postId){
         return postService.delPost(postId);
     }
 

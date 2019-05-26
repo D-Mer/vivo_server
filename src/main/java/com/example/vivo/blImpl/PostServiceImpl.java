@@ -112,7 +112,6 @@ public class PostServiceImpl implements PostService {
     public ResponseVO giveUp(OrderForm orderForm){
         ResponseVO response;
         try {
-            //todo: 扣除信用积分
             if (!accountService.updateCredit(orderForm.getEmail(), -10)){
                 response = ResponseVO.buildFailure(null);
                 response.setContent("弃单失败，原因：信用分扣除失败");
@@ -129,16 +128,22 @@ public class PostServiceImpl implements PostService {
         }
     }
     @Override
-    public ResponseVO completePost(String postId){
+    public ResponseVO completePost(int postId){
         ResponseVO response;
         try {
             Date endTime = new Date();
-            response=ResponseVO.buildSuccess(postMapper.completePost(postId, endTime));
+            if (postMapper.completePost(postId, endTime)){
+                response = ResponseVO.buildSuccess(null);
+                response.setMessage("完成订单成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("完成订单失败，原因：订单不存在");
+            }
             return response;
         }catch (Exception e){
             e.printStackTrace();
-            response=ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response = ResponseVO.buildFailure(null);
+            response.setContent("完成订单失败，未知错误");
             return response;
         }
     }
@@ -146,11 +151,12 @@ public class PostServiceImpl implements PostService {
     public ResponseVO selectPostByMajor(int major){
         ResponseVO response;
         try{
-            response=ResponseVO.buildSuccess(postMapper.selectPostsByMajor(major));
+            response = ResponseVO.buildSuccess(postMapper.selectPostsByMajor(major));
+            response.setMessage("获取订单成功");
             return response;
         }catch (Exception e){
             e.printStackTrace();
-            response=ResponseVO.buildFailure(null);
+            response = ResponseVO.buildFailure(null);
             response.setContent("失败");
             return response;
         }
@@ -159,12 +165,18 @@ public class PostServiceImpl implements PostService {
     public ResponseVO delPost(int postId){
         ResponseVO response;
         try{
-            response=ResponseVO.buildSuccess(postMapper.delPostById(postId));
+            if (postMapper.delPostById(postId)){
+                response = ResponseVO.buildSuccess(null);
+                response.setMessage("删帖成功");
+            }else {
+                response = ResponseVO.buildFailure(null);
+                response.setMessage("删帖失败，原因：订单不存在或已被接单");
+            }
             return response;
         }catch (Exception e){
             e.printStackTrace();
             response=ResponseVO.buildFailure(null);
-            response.setContent("失败");
+            response.setContent("删帖失败，未知原因");
             return response;
         }
     }

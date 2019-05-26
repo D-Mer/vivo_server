@@ -41,16 +41,16 @@
         update post set state=0 where id=#{postId}
     </update>
 
-    <update id="completeUpPost">
-        update post set state=2, endTime={#endTime} where id={#postId}
+    <update id="completePost">
+        update post set state=2, endTime=#{endTime} where id=#{postId}
     </update>
 
     <select id="selectPostsByMajor" resultMap="PostPO">
-        select * from post where major={#major}
+        select * from post where major=#{major}
     </select>
 
-    <delete id="deletePostById">
-        delete from post where id={#postId}
+    <delete id="delPostById">
+        delete from post where id=#{postId} and state!=1
     </delete>
 
 </mapper>
