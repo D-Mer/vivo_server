@@ -96,7 +96,7 @@ public class PostServiceImpl implements PostService {
         ResponseVO response;
         try {
             response = ResponseVO.buildSuccess(postMapper.takeOrder(orderForm.getPostId(), orderForm.getEmail()));
-            System.out.println(response.getContent()+"ddddddd");
+            System.out.println(response.getContent());
             response.setMessage("接单成功");
             return response;
         }catch (Exception e){
