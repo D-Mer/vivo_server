@@ -58,7 +58,7 @@ public class FileController {
         System.out.println("文件存储路径为：" + finalPath);
 
         // 创建一个新文件
-        File dest = new File("E:\\vivo马拉松\\vivo_server\\阿库娅.jpeg");
+        File dest = new File("E:"+File.separator+"vivo马拉松"+File.separator+"vivo_server"+File.separator+"阿库娅.jpeg");
 //        // 检测是否存在目录
 //        if (!dest.getParentFile().exists()) {
 //            dest.getParentFile().mkdirs();// 新建文件夹
