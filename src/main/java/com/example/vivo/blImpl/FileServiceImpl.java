@@ -13,7 +13,7 @@ public class FileServiceImpl implements FileService, FileServiceForBL {
 
 //    private static final String filePath = "/usr/files/";
 //    private static final String Seperater = "/";
-    private static final String filePath = "E:\\vivo马拉松\\vivo_server\\";
+    private static final String filePath = "C:"+File.separator+"Users"+File.separator+"jason"+File.separator+"Pictures";
     private static final String Seperater = "\\";
 
 
@@ -29,8 +29,8 @@ public class FileServiceImpl implements FileService, FileServiceForBL {
         String fileName = file.getOriginalFilename();
         System.out.println("上传的文件名为：" + fileName);
 
-        String finalPath = filePath + (email.isEmpty() ? "" : email+Seperater) + fileName;
-        System.out.println("文件存储路径为：" + finalPath);
+        String finalPath = filePath + File.separator+(email.isEmpty() ? "" : email+Seperater) + fileName;
+        System.out.println("文件存储路径为：" + finalPath+"dddd");
 
         // 创建一个新文件
         File dest = new File(finalPath);

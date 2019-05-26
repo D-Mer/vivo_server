@@ -40,6 +40,7 @@ public class PostPO {
     private Double price;
     /*帖子评论id列表（化为字符串）*/
     private int commentNum;
+
     private String commentIds;
 
     /*int标签tag*/
@@ -50,7 +51,8 @@ public class PostPO {
     /*文件/图片url*/
     private String urls;
 
-    public PostPO(){}
+    public PostPO(){
+    }
 
     public PostPO(PostForm postForm, String urls){
         this.email = postForm.getEmail();

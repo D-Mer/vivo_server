@@ -43,6 +43,7 @@ public class PostVO {
     private Double price;
     /*帖子评论id列表（化为字符串）*/
     private int commentNum;
+
     private String commentIds;
 
     /*int标签tag*/
@@ -69,6 +70,7 @@ public class PostVO {
         this.urls = Arrays.asList(post.getUrls().split(","));
         this.id =post.getId();
     }
+
 
 //    public PostVO(PostForm postForm){
 //        this.description=postForm.getDescription();
