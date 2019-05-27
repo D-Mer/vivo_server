@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vivo.data.comment.CommentMapper">
+
+    <parameterMap id="CommentPO" type="com.example.vivo.po.CommentPO">
+        <parameter property="id"/>
+        <parameter property="postId"/>
+        <parameter property="replierEmail"/>
+        <parameter property="firstCommentId"/>
+        <parameter property="secondCommentId"/>
+        <parameter property="content"/>
+        <parameter property="urls"/>
+        <parameter property="time"/>
+    </parameterMap>
+
+    <resultMap id="CommentPO" type="com.example.vivo.po.CommentPO">
+    </resultMap>
+
+    <insert id="insertComment" parameterMap="CommentPO" useGeneratedKeys="true">
+        insert into comment(id,postId,replierEmail,firstCommentId,secondCommentId,content,urls,time)
+        values (#{id},#{postId},#{replierEmail},#{firstCommentId},#{secondCommentId},#{content},#{urls},#{time})
+    </insert>
+
+    <select id="selectLastCommentId" resultType="int">
+        select max(id) from comment
+    </select>
+
+    <select id="selectCommentById" resultMap="CommentPO">
+        select * from comment where id=#{id}
+    </select>
+
+</mapper>

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl implements PostService, PostServiceForBL {
 
     @Autowired
     FileServiceForBL fileService;
@@ -185,4 +185,15 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    @Override
+    public boolean addComment(int postId, int commentId) {
+        PostPO postPO = postMapper.selectPostById(postId);
+        String newCommentIds = postPO.getCommentIds().isEmpty() ? commentId + "" : postPO.getCommentIds() + "," + commentId;
+        return postMapper.addComment(postId, newCommentIds);
+    }
+
+    @Override
+    public List<String> getCommentIdsByPostId(int postId) {
+        return Arrays.asList(postMapper.selectCommentIdsByPostId(postId).split(","));
+    }
 }

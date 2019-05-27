@@ -5,6 +5,9 @@ import com.example.vivo.vo.ReplyForm;
 import com.example.vivo.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
@@ -14,7 +17,14 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping("/replyPost")
-    public ResponseVO replyPost(@RequestBody ReplyForm replyForm){
+    public ResponseVO replyPost(@RequestParam("postId") int postId, @RequestParam("firstCommentId") String firstCommentId, @RequestParam("secondCommentId") String secondCommentId, @RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("pictures") List<MultipartFile> pictures){
+        ReplyForm replyForm = new ReplyForm();
+        replyForm.setPostId(postId);
+        replyForm.setFirstCommentId(firstCommentId.isEmpty() ? 0 : Integer.parseInt(firstCommentId));
+        replyForm.setSecondCommentId(secondCommentId.isEmpty() ? 0 : Integer.parseInt(secondCommentId));
+        replyForm.setEmail(email);
+        replyForm.setContent(content);
+        replyForm.setPictures(pictures);
         return commentService.replyPost(replyForm);
     }
 
@@ -23,9 +33,9 @@ public class CommentController {
         return commentService.getCommentsByPostId(postId);
     }
 
-    @PostMapping("/getNews")
+    @PostMapping("/getMessages")
     public ResponseVO getNews(@RequestParam String email){
-        return commentService.getNews(email);
+        return commentService.getMessages(email);
     }
 
 }

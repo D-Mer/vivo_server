@@ -61,4 +61,12 @@
         delete from post where id=#{postId} and state!=1
     </delete>
 
+    <update id="addComment">
+        update post set commentNum=commentNum+1,commentIds=#{newCommentIds} where id=#{postId}
+    </update>
+
+    <select id="selectCommentIdsByPostId" resultType="String">
+        select commentIds from post where id=#{postId}
+    </select>
+
 </mapper>

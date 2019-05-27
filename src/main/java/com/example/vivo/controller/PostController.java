@@ -28,12 +28,12 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    public ResponseVO addPosts(@RequestParam("picture") List<MultipartFile> picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") int major, @RequestParam("description") String description, @RequestParam("price") double price){
+    public ResponseVO addPosts(@RequestParam("picture") List<MultipartFile> picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") String major, @RequestParam("description") String description, @RequestParam("price") double price){
         PostForm postForm = new PostForm();
         postForm.setPicture(picture);
         postForm.setTitle(title);
         postForm.setEmail(email);
-        postForm.setMajor(major);
+        postForm.setMajor(major.isEmpty() ? 0 : Integer.parseInt(major));
         postForm.setDescription(description);
         postForm.setPrice(price);
         return postService.addPosts(postForm);

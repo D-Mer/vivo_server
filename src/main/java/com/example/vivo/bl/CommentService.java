@@ -10,6 +10,6 @@ public interface CommentService {
 
     ResponseVO getCommentsByPostId(int postId);
 
-    ResponseVO getNews(String email);
+    ResponseVO getMessages(String email);
 
 }
