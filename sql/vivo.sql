@@ -1,13 +1,3 @@
-create table tag
-(
-    id   int auto_increment
-        primary key,
-    name varchar(20) not null,
-    constraint tag_name_uindex
-        unique (name)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 create table major
 (
     id   int auto_increment
@@ -32,6 +22,8 @@ INSERT INTO vivo.major (id, name) VALUES (3, '考古学');
 INSERT INTO vivo.major (id, name) VALUES (10, '英语');
 INSERT INTO vivo.major (id, name) VALUES (2, '计算机科学与技术');
 INSERT INTO vivo.major (id, name) VALUES (1, '软件工程');
+
+
 
 create table user
 (
@@ -59,20 +51,19 @@ create table user
             on update cascade on delete set null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO vivo.user (email, password, major, secondMajor, minor, balance, hobbies, credit, posts, qq, wechat, tel) VALUES ('1', '1', 1, 1, 1, 1, '1', 1, '1', '1', '1', '1');
 
-create table comment
+
+
+create table tag
 (
-    id              int auto_increment
+    id   int auto_increment
         primary key,
-    replierEmail    varchar(40) not null,
-    firstCommentId  int         null,
-    secondCommentId int         null,
-    content         text        null,
-    urls            text        null
+    name varchar(20) not null,
+    constraint tag_name_uindex
+        unique (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-create index replierEmail
-    on comment (replierEmail);
 
 create table post
 (
@@ -84,6 +75,7 @@ create table post
     urls            text                      null,
     major           int                       null,
     tag             text                      null,
+    commentNum      int         default 0     null,
     commentIds      text                      null,
     price           double      default 0     not null,
     state           varchar(20) default '未完成' not null,
@@ -101,3 +93,26 @@ create table post
 create index orderEmail
     on post (email);
 
+INSERT INTO vivo.post (id, email, title, description, urls, major, tag, commentNum, commentIds, price, state, startTime, endTime, orderTakerEmail) VALUES (0, '0', 'null', 'null', null, 0, null, null, null, 0, '未完成', '2019-05-26 23:25:49', null, null);
+
+
+create table comment
+(
+    id              int auto_increment
+        primary key,
+    postId          int         null,
+    replierEmail    varchar(40) not null,
+    firstCommentId  int         null,
+    secondCommentId int         null,
+    content         text        null,
+    urls            text        null,
+    time            datetime    null,
+    constraint postId
+        foreign key (postId) references post (id)
+            on update cascade on delete set null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+create index replierEmail
+    on comment (replierEmail);
+
+INSERT INTO vivo.comment (id, postId, replierEmail, firstCommentId, secondCommentId, content, urls, time) VALUES (0, 0, 'null', null, null, null, null, null);

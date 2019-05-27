@@ -24,3 +24,4 @@ create table user
             on update cascade on delete set null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO vivo.user (email, password, major, secondMajor, minor, balance, hobbies, credit, posts, qq, wechat, tel) VALUES ('1', '1', 1, 1, 1, 1, '1', 1, '1', '1', '1', '1');

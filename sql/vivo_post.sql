@@ -8,6 +8,7 @@ create table post
     urls            text                      null,
     major           int                       null,
     tag             text                      null,
+    commentNum      int         default 0     null,
     commentIds      text                      null,
     price           double      default 0     not null,
     state           varchar(20) default '未完成' not null,
@@ -25,3 +26,4 @@ create table post
 create index orderEmail
     on post (email);
 
+INSERT INTO vivo.post (id, email, title, description, urls, major, tag, commentNum, commentIds, price, state, startTime, endTime, orderTakerEmail) VALUES (0, '0', 'null', 'null', null, 0, null, null, null, 0, '未完成', '2019-05-26 23:25:49', null, null);

@@ -3,6 +3,8 @@ package com.example.vivo.po;
 import com.example.vivo.vo.ReplyForm;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class CommentPO {
 
@@ -41,6 +43,11 @@ public class CommentPO {
      * */
     private String urls;
 
+    /**
+     * 回复时间
+     * */
+    private Date time;
+
     public CommentPO(){}
 
     public CommentPO(ReplyForm replyForm, String urls){
@@ -50,6 +57,7 @@ public class CommentPO {
         this.secondCommentId = replyForm.getSecondCommentId();
         this.content = replyForm.getContent();
         this.urls = urls;
+        this.time = new Date();
     }
 
 

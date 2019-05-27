@@ -4,6 +4,7 @@ import com.example.vivo.po.CommentPO;
 import lombok.Data;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -44,6 +45,11 @@ public class CommentVO {
      * */
     private List<String> urls;
 
+    /**
+     * 回复时间
+     * */
+    private Date time;
+
     public CommentVO(){}
 
     public CommentVO(CommentPO commentPO){
@@ -54,5 +60,6 @@ public class CommentVO {
         this.secondCommentId = commentPO.getSecondCommentId();
         this.content = commentPO.getContent();
         this.urls = Arrays.asList(commentPO.getUrls().split(","));
+        this.time = commentPO.getTime();
     }
 }
