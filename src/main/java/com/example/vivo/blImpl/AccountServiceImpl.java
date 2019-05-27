@@ -17,7 +17,6 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
     public ResponseVO login(UserForm user) {
         String email = user.getEmail();
         String password = user.getPassword();
-        System.out.println("用户名为："+ email +" 密码为："+password+"\n请求登录");
         ResponseVO response;
         UserPO userPO = accountMapper.selectUserByEmail(email);
         if (userPO == null){
@@ -35,10 +34,6 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
 
     @Override
     public ResponseVO insertUser(UserForm user) {
-//        userPO.setSignupDate(new Date());
-//        if (!user.getVerificationCode().equals("123")){
-//            return ResponseVO.buildFailure("验证码错误");
-//        }
         ResponseVO response;
         try{
             System.out.println(user.getEmail());
@@ -54,11 +49,6 @@ public class AccountServiceImpl implements AccountService, AccountServiceForBL {
         response = ResponseVO.buildFailure(null);
         response.setMessage("注册成功");
         return response;
-    }
-
-    @Override
-    public ResponseVO selectUserByEmail(String email) {
-        return null;
     }
 
     @Override

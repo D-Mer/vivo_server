@@ -41,7 +41,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             response.setMessage("查询成功");
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setMessage("查询失败，原因未知");
             return response;
@@ -58,7 +57,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             response.setMessage("查询成功");
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("查询失败，原因：目标不存在");
             return response;
@@ -86,7 +84,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             response.setMessage("发帖成功");
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("发生了未知错误");
             return response;
@@ -130,7 +127,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             response.setMessage("弃单成功");
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("弃单失败，原因未知");
             return response;
@@ -150,7 +146,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             }
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("完成订单失败，未知错误");
             return response;
@@ -170,7 +165,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             }
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("获取订单失败，未知原因");
             return response;
@@ -190,7 +184,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             }
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("获取订单失败，未知原因");
             return response;
@@ -210,7 +203,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             }
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response = ResponseVO.buildFailure(null);
             response.setContent("获取订单失败，未知原因");
             return response;
@@ -229,7 +221,6 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             }
             return response;
         }catch (Exception e){
-            e.printStackTrace();
             response=ResponseVO.buildFailure(null);
             response.setContent("删帖失败，未知原因");
             return response;

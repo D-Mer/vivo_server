@@ -9,6 +9,4 @@ public interface AccountService {
     ResponseVO login(UserForm user);
 
     ResponseVO insertUser(UserForm user);
-
-    ResponseVO selectUserByEmail(String email);
 }

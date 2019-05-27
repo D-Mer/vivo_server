@@ -33,9 +33,4 @@ public class CommentController {
         return commentService.getCommentsByPostId(postId);
     }
 
-    @PostMapping("/getMessages")
-    public ResponseVO getNews(@RequestParam String email){
-        return commentService.getMessages(email);
-    }
-
 }

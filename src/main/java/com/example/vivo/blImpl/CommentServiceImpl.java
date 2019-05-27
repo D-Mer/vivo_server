@@ -3,6 +3,7 @@ package com.example.vivo.blImpl;
 import com.example.vivo.bl.CommentService;
 import com.example.vivo.data.comment.CommentMapper;
 import com.example.vivo.po.CommentPO;
+import com.example.vivo.vo.CommentVO;
 import com.example.vivo.vo.ReplyForm;
 import com.example.vivo.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,14 +64,14 @@ public class CommentServiceImpl implements CommentService {
     public ResponseVO getCommentsByPostId(int postId) {
         ResponseVO response;
         try{
-            List<CommentPO> commentPOList = new ArrayList<>();
+            List<CommentVO> commentVOList = new ArrayList<>();
             List<String> idStrings = postService.getCommentIdsByPostId(postId);
             int id;
             for (String s : idStrings) {
                 id = Integer.parseInt(s);
-                commentPOList.add(commentMapper.selectCommentById(id));
+                commentVOList.add(new CommentVO(commentMapper.selectCommentById(id)));
             }
-            response = ResponseVO.buildSuccess(commentPOList);
+            response = ResponseVO.buildSuccess(sort(commentVOList));
             response.setMessage("获取评论成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -80,10 +81,30 @@ public class CommentServiceImpl implements CommentService {
         return response;
     }
 
-    @Override
-    public ResponseVO getMessages(String email) {
-        ResponseVO response;
+    private List<List<CommentVO>> sort(List<CommentVO> commentVOList){
+        List<List<CommentVO>> resultList = new ArrayList<>();
+        List<CommentVO> outerList = new ArrayList<>();
+        List<CommentVO> innerList = new ArrayList<>();
+        for (CommentVO vo : commentVOList) {
+            if (vo.getFirstCommentId()==0 && vo.getSecondCommentId()==0){
+                outerList.add(vo);
+            }else {
+                innerList.add(vo);
+            }
+        }
+        List<CommentVO> tempList;
+        for (CommentVO commentVO : outerList) {
+            tempList = new ArrayList<>();
+            tempList.add(commentVO);
+            for (CommentVO comment : innerList) {
+                if (comment.getFirstCommentId() == commentVO.getId()) {
+                    tempList.add(comment);
+                }
+            }
+            resultList.add(tempList);
+        }
 
-        return null;
+        return resultList;
     }
+
 }
