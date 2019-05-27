@@ -70,17 +70,18 @@ public class PostServiceImpl implements PostService, PostServiceForBL {
             StringBuilder url = new StringBuilder();
             String tempUrl;
             PostPO postPO;
-            for (MultipartFile f : postForm.getPicture()) {
-                if ((tempUrl = String.valueOf(fileService.saveFile(f, postForm.getEmail()).getContent())).equals("null")){
-                    response = ResponseVO.buildFailure(null);
-                    response.setMessage("发帖失败，原因：文件保存失败");
-                    return response;
-                }
-                url.append(url.length() == 0 ? tempUrl : ","+tempUrl);
-            }
+            url.append("http://101.132.97.118:8080/files/%E9%98%BF%E5%BA%93%E5%A8%85.jpeg");
+//            for (MultipartFile f : postForm.getPicture()) {
+//                if ((tempUrl = String.valueOf(fileService.saveFile(f, postForm.getEmail()).getContent())).equals("null")){
+//                    response = ResponseVO.buildFailure(null);
+//                    response.setMessage("发帖失败，原因：文件保存失败");
+//                    return response;
+//                }
+//                url.append(url.length() == 0 ? tempUrl : ","+tempUrl);
+//            }
             postPO = new PostPO(postForm, url.toString());
             postMapper.addPost(postPO);
-            response = ResponseVO.buildSuccess(Arrays.asList(url.toString().split(",")));
+            response = ResponseVO.buildSuccess("http://101.132.97.118:8080/files/%E9%98%BF%E5%BA%93%E5%A8%85.jpeg");
             response.setMessage("发帖成功");
             return response;
         }catch (Exception e){

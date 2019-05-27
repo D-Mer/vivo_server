@@ -36,7 +36,7 @@ public class ReplyForm {
     /**
      * 回复内容总的图片(楼中楼无图)
      */
-    private List<MultipartFile> pictures;
+    private String pictures;
 
 
 

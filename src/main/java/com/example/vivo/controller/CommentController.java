@@ -16,15 +16,20 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+//    @PostMapping("/replyPost")
+//    public ResponseVO replyPost(@RequestParam("postId") int postId, @RequestParam("firstCommentId") String firstCommentId, @RequestParam("secondCommentId") String secondCommentId, @RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("pictures") List<MultipartFile> pictures){
+//        ReplyForm replyForm = new ReplyForm();
+//        replyForm.setPostId(postId);
+//        replyForm.setFirstCommentId(firstCommentId.isEmpty() ? 0 : Integer.parseInt(firstCommentId));
+//        replyForm.setSecondCommentId(secondCommentId.isEmpty() ? 0 : Integer.parseInt(secondCommentId));
+//        replyForm.setEmail(email);
+//        replyForm.setContent(content);
+//        replyForm.setPictures(pictures);
+//        return commentService.replyPost(replyForm);
+//    }
+
     @PostMapping("/replyPost")
-    public ResponseVO replyPost(@RequestParam("postId") int postId, @RequestParam("firstCommentId") String firstCommentId, @RequestParam("secondCommentId") String secondCommentId, @RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("pictures") List<MultipartFile> pictures){
-        ReplyForm replyForm = new ReplyForm();
-        replyForm.setPostId(postId);
-        replyForm.setFirstCommentId(firstCommentId.isEmpty() ? 0 : Integer.parseInt(firstCommentId));
-        replyForm.setSecondCommentId(secondCommentId.isEmpty() ? 0 : Integer.parseInt(secondCommentId));
-        replyForm.setEmail(email);
-        replyForm.setContent(content);
-        replyForm.setPictures(pictures);
+    public ResponseVO replyPost(@RequestBody ReplyForm replyForm){
         return commentService.replyPost(replyForm);
     }
 

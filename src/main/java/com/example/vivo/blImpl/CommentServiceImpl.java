@@ -33,19 +33,20 @@ public class CommentServiceImpl implements CommentService {
             StringBuilder url = new StringBuilder();
             String tempUrl;
             CommentPO commentPO;
-            for (MultipartFile f : replyForm.getPictures()) {
-                if ((tempUrl = String.valueOf(fileService.saveFile(f, replyForm.getEmail()).getContent())).equals("null")) {
-                    response = ResponseVO.buildFailure(null);
-                    response.setMessage("回帖失败，原因：文件保存失败");
-                    return response;
-                }
-                url.append(url.length() == 0 ? tempUrl : "," + tempUrl);
-            }
+            url.append("http://101.132.97.118:8080/files/%E9%98%BF%E5%BA%93%E5%A8%85.jpeg");
+//            for (MultipartFile f : replyForm.getPictures()) {
+////                if ((tempUrl = String.valueOf(fileService.saveFile(f, replyForm.getEmail()).getContent())).equals("null")) {
+////                    response = ResponseVO.buildFailure(null);
+////                    response.setMessage("回帖失败，原因：文件保存失败");
+////                    return response;
+////                }
+////                url.append(url.length() == 0 ? tempUrl : "," + tempUrl);
+////            }
             commentPO = new CommentPO(replyForm, url.toString());
             commentMapper.insertComment(commentPO);
             commentPO.setId(commentMapper.selectLastCommentId());
             if (postService.addComment(commentPO.getPostId(), commentPO.getId())){
-                response = ResponseVO.buildSuccess(Arrays.asList(url.toString().split(",")));
+                response = ResponseVO.buildSuccess("http://101.132.97.118:8080/files/%E9%98%BF%E5%BA%93%E5%A8%85.jpeg");
                 response.setMessage("回帖成功");
             }else {
                 response = ResponseVO.buildFailure(null);

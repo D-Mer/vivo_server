@@ -27,15 +27,19 @@ public class PostController {
         return postService.getPostById(id);
     }
 
+//    @PostMapping("/addPost")
+//    public ResponseVO addPosts(@RequestParam("picture") List<MultipartFile> picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") String major, @RequestParam("description") String description, @RequestParam("price") double price){
+//        PostForm postForm = new PostForm();
+//        postForm.setPicture(picture);
+//        postForm.setTitle(title);
+//        postForm.setEmail(email);
+//        postForm.setMajor(major.isEmpty() ? 0 : Integer.parseInt(major));
+//        postForm.setDescription(description);
+//        postForm.setPrice(price);
+//        return postService.addPosts(postForm);
+//    }
     @PostMapping("/addPost")
-    public ResponseVO addPosts(@RequestParam("picture") List<MultipartFile> picture, @RequestParam("title") String title, @RequestParam("email") String email, @RequestParam("major") String major, @RequestParam("description") String description, @RequestParam("price") double price){
-        PostForm postForm = new PostForm();
-        postForm.setPicture(picture);
-        postForm.setTitle(title);
-        postForm.setEmail(email);
-        postForm.setMajor(major.isEmpty() ? 0 : Integer.parseInt(major));
-        postForm.setDescription(description);
-        postForm.setPrice(price);
+    public ResponseVO addPosts(@RequestBody PostForm postForm){
         return postService.addPosts(postForm);
     }
 

@@ -14,6 +14,6 @@ public class PostForm {
     private int major;
     private int tagId;
     private String description;
-    private List<MultipartFile> picture;
+    private String picture;
     private double price;
 }
